@@ -11,13 +11,13 @@ endif ()
 if (NOT BOOST_CUSTOM AND NOT BUILD_PY3)
     #Unset those, otherwise find_package(PythonLibs) will pick up old stuff
     #if it has been run before
-    unset(Python_ADDITIONAL_VERSIONS)
-    unset(PYTHON_LIBRARY)
-    unset(PYTHON_LIBRARY CACHE)
-    unset(PYTHON_INCLUDE_DIR)
-    unset(PYTHON_INCLUDE_DIR CACHE)
-    unset(PYTHON_INCLUDE_PATH)
-    unset(PYTHON_INCLUDE_PATH CACHE)
+    # unset(Python_ADDITIONAL_VERSIONS)
+    # unset(PYTHON_LIBRARY)
+    # unset(PYTHON_LIBRARY CACHE)
+    # unset(PYTHON_INCLUDE_DIR)
+    # unset(PYTHON_INCLUDE_DIR CACHE)
+    # unset(PYTHON_INCLUDE_PATH)
+    # unset(PYTHON_INCLUDE_PATH CACHE)
     find_package (PythonLibs ${PYTHON_VERSION} REQUIRED)
     find_package (Boost 1.42 REQUIRED COMPONENTS python)
 elseif (BOOST_CUSTOM AND NOT BUILD_PY3)
@@ -27,12 +27,12 @@ else ()
 
     #Unset those, otherwise find_package(PythonLibs) will pick up old stuff
     #if it has been run before
-    unset(PYTHON_LIBRARY)
-    unset(PYTHON_LIBRARY CACHE)
-    unset(PYTHON_INCLUDE_DIR)
-    unset(PYTHON_INCLUDE_DIR CACHE)
-    unset(PYTHON_INCLUDE_PATH)
-    unset(PYTHON_INCLUDE_PATH CACHE)
+    # unset(PYTHON_LIBRARY)
+    # unset(PYTHON_LIBRARY CACHE)
+    # unset(PYTHON_INCLUDE_DIR)
+    # unset(PYTHON_INCLUDE_DIR CACHE)
+    # unset(PYTHON_INCLUDE_PATH)
+    # unset(PYTHON_INCLUDE_PATH CACHE)
 
     #cmake 2.8 does not look for python 3.4
     set(Python_ADDITIONAL_VERSIONS 3.4)
@@ -122,7 +122,7 @@ if (BOOST_CUSTOM OR Boost_FOUND AND PYTHONLIBS_FOUND)
                                DEBUG_POSTFIX "_d"
                                SUFFIX ".pyd")
     endif()
-    
+
     if (BUILD_PY3)
         install (TARGETS ${target_name}
                  RUNTIME DESTINATION ${PYLIB3_INSTALL_DIR} COMPONENT user
