@@ -13,7 +13,7 @@ IF(PKG_CONFIG_FOUND AND NOT LIBRAW_PATH)
    SET(LibRaw_DEFINITIONS ${PC_LIBRAW_CFLAGS_OTHER})
 
    PKG_CHECK_MODULES(PC_LIBRAW_R QUIET libraw_r)
-   SET(LibRaw_r_DEFINITIONS ${PC_LIBRAW_R_CFLAGS_OTHER})   
+   SET(LibRaw_r_DEFINITIONS ${PC_LIBRAW_R_CFLAGS_OTHER})
 ENDIF()
 
 find_path (OpenCV_INCLUDE_DIR opencv/cv.h
@@ -37,8 +37,10 @@ if (OpenCV_INCLUDE_DIR AND EXISTS "${OpenCV_INCLUDE_DIR}/opencv2/core/version.hp
     string (REGEX MATCHALL "[0-9]+" CV_VERSION_REVISION ${TMP})
     if (CV_VERSION_EPOCH)
         set (OpenCV_VERSION "${CV_VERSION_EPOCH}.${CV_VERSION_MAJOR}.${CV_VERSION_MINOR}")
+        set (OpenCV_VERSION_SUFFIX "${CV_VERSION_EPOCH}${CV_VERSION_MAJOR}${CV_VERSION_MINOR}")
     else ()
         set (OpenCV_VERSION "${CV_VERSION_MAJOR}.${CV_VERSION_MINOR}.${CV_VERSION_REVISION}")
+        set (OpenCV_VERSION_SUFFIX "${CV_VERSION_MAJOR}${CV_VERSION_MINOR}")
     endif ()
 endif ()
 
@@ -51,9 +53,9 @@ set (libdirs "${PROJECT_SOURCE_DIR}/lib"
              )
 
 
-set (opencv_components opencv_highgui opencv_imgproc opencv_core)
+set (opencv_components opencv_highgui opencv_imgproc opencv_core opencv_highgui${OpenCV_VERSION_SUFFIX} opencv_imgproc${OpenCV_VERSION_SUFFIX} opencv_core${OpenCV_VERSION_SUFFIX})
 if (NOT ${OpenCV_VERSION} VERSION_LESS 3.0.0)
-    set (opencv_components opencv_videoio ${opencv_components})
+    set (opencv_components opencv_videoio opencv_videoio${OpenCV_VERSION_SUFFIX} ${opencv_components})
 endif ()
 foreach (component ${opencv_components})
     find_library (${component}_lib
